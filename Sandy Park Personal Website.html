@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sandy Sungkyung Park | Technology, AI & Systems</title>
+<meta name="description" content="Sandy Sungkyung Park is a Technological Systems Management student at Stony Brook University | SUNY Korea exploring AI, data, technology management, responsible AI, and the practical application of emerging technology.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ============ TOKENS ============ */
+:root{
+  --paper:#F6F5F1;
+  --paper-dim:#EEECE6;
+  --ink:#12151A;
+  --ink-soft:#2B2F35;
+  --muted:#6B6F76;
+  --line:#D8D6D0;
+  --line-strong:#B7B4AC;
+
+  /* concept colors — used only as functional tags/dots, never decoration */
+  --c-tech:#3E5C76;
+  --c-ai:#8A4B3F;
+  --c-data:#5C6B3E;
+  --c-systems:#6B5C8A;
+  --c-business:#8A7A3E;
+  --c-impact:#3E7A72;
+
+  --serif:'Newsreader', Georgia, serif;
+  --sans:'Inter', -apple-system, sans-serif;
+  --mono:'IBM Plex Mono', ui-monospace, monospace;
+
+  --maxw:1180px;
+  --edge:clamp(20px, 5vw, 64px);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;}
+img{max-width:100%;display:block;}
+::selection{background:var(--ink); color:var(--paper);}
+
+.wrap{max-width:var(--maxw); margin:0 auto; padding-left:var(--edge); padding-right:var(--edge);}
+
+h1,h2,h3,h4{
+  font-family:var(--serif);
+  font-weight:500;
+  margin:0;
+  letter-spacing:-0.01em;
+  color:var(--ink);
+}
+p{margin:0;}
+.mono{font-family:var(--mono); font-size:0.78rem; letter-spacing:0.02em;}
+
+.section{
+  padding:clamp(64px,10vw,120px) 0;
+  border-bottom:1px solid var(--line);
+}
+.section:last-of-type{border-bottom:none;}
+
+.section-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:24px;
+  margin-bottom:clamp(36px,6vw,64px);
+  flex-wrap:wrap;
+}
+.section-index{font-family:var(--mono); font-size:0.78rem; color:var(--muted);}
+.section-title{font-size:clamp(1.7rem, 3.2vw, 2.5rem);}
+.section-lede{max-width:56ch; color:var(--ink-soft); font-size:1.05rem; margin-top:14px;}
+
+button{font-family:inherit; cursor:pointer;}
+
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 22px; border:1px solid var(--ink);
+  background:transparent; color:var(--ink);
+  font-size:0.92rem; font-family:var(--sans); font-weight:500;
+  text-decoration:none; transition:background 0.2s ease, color 0.2s ease;
+}
+.btn:hover{background:var(--ink); color:var(--paper);}
+.btn.solid{background:var(--ink); color:var(--paper);}
+.btn.solid:hover{background:var(--ink-soft);}
+
+.reveal{opacity:0; transform:translateY(14px); transition:opacity 0.7s ease, transform 0.7s ease;}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+.note{
+  font-size:0.86rem; color:var(--muted); font-style:italic;
+  border-left:2px solid var(--line-strong); padding-left:14px; margin-top:18px; max-width:60ch;
+}
+
+/* ============ NAV ============ */
+.nav{position:sticky; top:0; z-index:50; background:rgba(246,245,241,0.92); backdrop-filter:blur(6px); border-bottom:1px solid var(--line);}
+.nav .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px; position:relative;}
+.nav-name{font-family:var(--serif); font-size:1.05rem; font-weight:500; text-decoration:none; color:var(--ink);}
+.nav-links{display:flex; gap:28px; list-style:none; margin:0; padding:0;}
+.nav-links a{text-decoration:none; font-size:0.88rem; color:var(--ink-soft); padding-bottom:2px; border-bottom:1px solid transparent; transition:border-color 0.2s ease, color 0.2s ease;}
+.nav-links a:hover{color:var(--ink); border-color:var(--ink);}
+.nav-toggle{display:none; background:none; border:none; font-size:1.4rem; color:var(--ink);}
+@media (max-width:860px){
+  .nav-links{
+    position:absolute; top:100%; left:0; right:0;
+    background:var(--paper); flex-direction:column; gap:0;
+    padding:0 var(--edge);
+    max-height:0; overflow:hidden;
+    transition:max-height 0.3s ease;
+    border-top:1px solid var(--line);
+    box-shadow:0 12px 24px rgba(0,0,0,0.08);
+  }
+  .nav-links.open{max-height:70vh; overflow-y:auto; padding:8px var(--edge) 16px;}
+  .nav-links a{display:block; padding:12px 0; border-bottom:1px solid var(--line); font-size:0.98rem;}
+  .nav-toggle{display:block;}
+}
+@media (max-width:420px){
+  .nav-links a{padding:10px 0; font-size:0.92rem;}
+  .nav-name{font-size:0.95rem;}
+  .nav-toggle{font-size:1.2rem;}
+}
+
+/* ============ HERO ============ */
+.hero{padding-top:clamp(56px,10vw,110px); padding-bottom:clamp(56px,8vw,90px); border-bottom:1px solid var(--line);}
+.hero-eyebrow{font-family:var(--mono); font-size:0.78rem; color:var(--muted); margin-bottom:22px;}
+.hero h1{font-size:clamp(2.5rem, 6.4vw, 4.8rem); line-height:1.05; max-width:16ch;}
+.hero-legalname{font-family:var(--mono); font-size:0.8rem; color:var(--muted); margin-top:16px;}
+.hero-sub{margin-top:22px; max-width:48ch; font-size:clamp(1.05rem,2vw,1.25rem); color:var(--ink-soft);}
+.hero-motto{margin-top:20px; max-width:44ch; font-family:var(--serif); font-style:italic; font-size:1.1rem; color:var(--ink);}
+.hero-meta{margin-top:14px; color:var(--muted); font-size:0.95rem;}
+.hero-ctas{display:flex; flex-wrap:wrap; gap:14px; margin-top:38px;}
+
+.flow{margin-top:clamp(56px,8vw,88px); display:flex; align-items:center; flex-wrap:wrap; gap:0; border-top:1px solid var(--line); padding-top:28px;}
+.flow-node{font-family:var(--mono); font-size:0.8rem; color:var(--muted); padding:8px 14px 8px 0; transition:color 0.3s ease;}
+.flow-node.active{color:var(--ink); font-weight:500;}
+.flow-arrow{color:var(--line-strong); padding:0 4px; font-size:0.8rem;}
+
+/* ============ ABOUT ============ */
+.about-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(32px,6vw,80px); align-items:start;}
+@media (max-width:800px){.about-grid{grid-template-columns:1fr;}}
+.about-statement{font-family:var(--serif); font-size:clamp(1.3rem,2.6vw,1.7rem); line-height:1.4; color:var(--ink);}
+.about-body p{margin-bottom:16px; color:var(--ink-soft);}
+.about-body p:last-child{margin-bottom:0;}
+.trajectory-mini{display:flex; flex-wrap:wrap; gap:8px; margin-top:24px;}
+.traj-chip{font-family:var(--mono); font-size:0.72rem; color:var(--muted); padding:5px 10px; border:1px solid var(--line);}
+
+/* ============ STUDY / DIAGRAM ============ */
+.study-layout{display:grid; grid-template-columns:1.1fr 0.9fr; gap:clamp(32px,6vw,72px); align-items:center;}
+@media (max-width:900px){.study-layout{grid-template-columns:1fr;}}
+.diagram{position:relative; width:100%; aspect-ratio:1/1; max-width:460px; margin:0 auto;}
+.diagram svg{width:100%; height:100%;}
+.node{cursor:pointer;}
+.node circle{fill:var(--paper); stroke-width:1.4; transition:fill 0.25s ease;}
+.node text{font-family:var(--mono); font-size:11px; fill:var(--ink); text-anchor:middle; dominant-baseline:middle; pointer-events:none;}
+.node.active circle{fill-opacity:0.14;}
+.diagram line{stroke:var(--line-strong); stroke-width:1; opacity:0.5;}
+.concept-list{list-style:none; margin:0; padding:0;}
+.concept-item{display:flex; gap:16px; align-items:flex-start; padding:16px 0; border-bottom:1px solid var(--line); cursor:pointer;}
+.concept-item:first-child{padding-top:0;}
+.concept-dot{width:9px; height:9px; border-radius:50%; margin-top:7px; flex:none;}
+.concept-name{font-weight:600; font-size:0.98rem;}
+.concept-desc{color:var(--muted); font-size:0.9rem; margin-top:3px; max-width:44ch;}
+.interests-tags{display:flex; flex-wrap:wrap; gap:10px; margin-top:44px;}
+.tag{font-family:var(--mono); font-size:0.76rem; color:var(--ink-soft); border:1px solid var(--line-strong); padding:6px 12px;}
+
+/* ============ WORK / PROJECTS ============ */
+.featured{border:1px solid var(--line-strong); padding:clamp(28px,4vw,48px); background:var(--paper-dim);}
+.featured-top{display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:28px;}
+.featured-cat{font-family:var(--mono); font-size:0.76rem; color:var(--muted);}
+.featured h3{font-size:clamp(1.5rem,3vw,2.1rem); margin-top:8px; max-width:22ch;}
+.featured-role{font-size:0.92rem; color:var(--muted); margin-top:6px;}
+.metrics-row{display:flex; flex-wrap:wrap; gap:clamp(28px,4vw,56px); margin:28px 0 32px; padding:24px 0; border-top:1px solid var(--line-strong); border-bottom:1px solid var(--line-strong);}
+.metric .num{font-family:var(--serif); font-size:2.2rem; font-weight:500;}
+.metric .label{font-family:var(--mono); font-size:0.74rem; color:var(--muted); margin-top:4px;}
+.fields-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px 40px;}
+@media (max-width:700px){.fields-grid{grid-template-columns:1fr;}}
+.field dt{font-family:var(--mono); font-size:0.74rem; color:var(--muted); margin-bottom:6px;}
+.field dd{margin:0; color:var(--ink-soft); font-size:0.94rem; line-height:1.55;}
+dl.fields-grid{margin:0;}
+.arch{margin-top:36px; padding-top:32px; border-top:1px solid var(--line-strong);}
+.arch-label{font-family:var(--mono); font-size:0.76rem; color:var(--muted); margin-bottom:18px;}
+.arch-chain{display:flex; flex-wrap:wrap; align-items:center; gap:0;}
+.arch-step{font-family:var(--mono); font-size:0.78rem; border:1px solid var(--line-strong); padding:8px 12px; background:var(--paper);}
+.arch-sep{color:var(--line-strong); padding:0 8px; font-size:0.9rem;}
+.highlight-strip{display:flex; flex-wrap:wrap; gap:8px; margin-top:24px;}
+.pill{font-family:var(--mono); font-size:0.72rem; padding:5px 11px; border:1px solid var(--line-strong); color:var(--ink-soft);}
+
+.dev-archive{margin-top:64px;}
+.dev-intro{color:var(--muted); font-size:0.94rem; margin-bottom:28px; max-width:60ch;}
+.dev-project{border-top:1px solid var(--line); padding:22px 0;}
+.dev-project:last-child{border-bottom:1px solid var(--line);}
+.dev-head{display:flex; justify-content:space-between; align-items:center; gap:20px; cursor:pointer; background:none; border:none; width:100%; text-align:left; padding:0; color:inherit; font-family:inherit;}
+.dev-title{font-family:var(--serif); font-size:1.2rem;}
+.dev-narrative{font-family:var(--mono); font-size:0.72rem; color:var(--muted); margin-top:4px;}
+.dev-toggle{font-size:1.2rem; color:var(--muted); transition:transform 0.25s ease; flex:none;}
+.dev-project.open .dev-toggle{transform:rotate(45deg);}
+.dev-body{max-height:0; overflow:hidden; transition:max-height 0.45s ease;}
+.dev-project.open .dev-body{max-height:1200px;}
+.dev-body-inner{padding-top:20px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px 32px;}
+.dev-field dt{font-family:var(--mono); font-size:0.72rem; color:var(--muted); margin-bottom:5px;}
+.dev-field dd{margin:0; font-size:0.9rem; color:var(--ink-soft); line-height:1.5;}
+.dev-tech{display:flex; flex-wrap:wrap; gap:6px; margin-top:16px;}
+
+/* ============ RESEARCH ============ */
+.research-feature{border:1px solid var(--line-strong); padding:clamp(24px,4vw,40px); margin-bottom:48px;}
+.research-feature-top{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:20px;}
+.research-status{font-family:var(--mono); font-size:0.72rem; color:var(--muted); border:1px solid var(--line-strong); padding:5px 10px; align-self:flex-start;}
+.research-feature h3{font-size:clamp(1.3rem,2.6vw,1.7rem); max-width:26ch;}
+.research-fields dt{font-family:var(--mono); font-size:0.74rem; color:var(--muted); margin-bottom:6px;}
+.research-fields dd{margin:0 0 20px; color:var(--ink-soft); font-size:0.94rem; line-height:1.6;}
+.research-fields dd:last-child{margin-bottom:0;}
+.research-themes{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-bottom:0;}
+@media (max-width:900px){.research-themes{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:600px){.research-themes{grid-template-columns:1fr;}}
+.theme-card{background:var(--paper); padding:26px;}
+.theme-card h4{font-size:1.05rem; margin-bottom:12px;}
+.theme-card ul{margin:0; padding-left:18px; color:var(--ink-soft); font-size:0.88rem; line-height:1.85;}
+.research-question{font-family:var(--serif); font-style:italic; font-size:1.15rem; margin-top:40px; max-width:60ch;}
+
+/* ============ AI x ORGANIZATIONS ============ */
+.org-layout{display:grid; grid-template-columns:1fr 1fr; gap:clamp(32px,6vw,72px);}
+@media (max-width:800px){.org-layout{grid-template-columns:1fr;}}
+.org-list{list-style:none; margin:0; padding:0;}
+.org-list li{padding:14px 0; border-bottom:1px solid var(--line); font-size:0.94rem; color:var(--ink-soft); display:flex; gap:12px;}
+.org-list li:first-child{padding-top:0;}
+.org-list li::before{content:"—"; color:var(--muted); flex:none;}
+
+/* ============ AI ETHICS ============ */
+.ethics-questions{display:flex; gap:1px; background:var(--line); border:1px solid var(--line); margin-bottom:40px;}
+@media (max-width:600px){.ethics-questions{flex-direction:column;}}
+.ethics-q{flex:1; background:var(--paper); padding:28px; font-family:var(--serif); font-size:1.2rem;}
+.ethics-tags{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:32px;}
+.ethics-flow{display:flex; flex-wrap:wrap; align-items:center; gap:0; border-top:1px solid var(--line); padding-top:24px;}
+
+/* ============ TIMELINE ============ */
+.timeline{border-left:1px solid var(--line-strong); margin-left:6px;}
+.tl-item{position:relative; padding:0 0 0 32px; margin-bottom:2px;}
+.tl-dot{position:absolute; left:-5px; top:6px; width:9px; height:9px; border-radius:50%; background:var(--ink);}
+.tl-btn{background:none; border:none; text-align:left; width:100%; padding:16px 0; cursor:pointer; color:inherit; font-family:inherit; display:flex; justify-content:space-between; align-items:baseline; gap:20px; flex-wrap:wrap; border-bottom:1px solid var(--line);}
+.tl-title{font-family:var(--serif); font-size:1.15rem;}
+.tl-tag{font-family:var(--mono); font-size:0.72rem; color:var(--muted);}
+.tl-detail{max-height:0; overflow:hidden; transition:max-height 0.35s ease;}
+.tl-item.open .tl-detail{max-height:400px;}
+.tl-detail-inner{padding:4px 0 20px; color:var(--ink-soft); font-size:0.92rem; max-width:64ch;}
+.tl-detail-inner ul{margin:10px 0 0; padding-left:18px;}
+
+/* ============ SKILLS ============ */
+.skills-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+@media (max-width:900px){.skills-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:520px){.skills-grid{grid-template-columns:1fr;}}
+.skill-col{background:var(--paper); padding:24px 22px;}
+.skill-col h4{font-size:0.98rem; margin-bottom:14px; display:flex; align-items:center; gap:8px;}
+.skill-col ul{list-style:none; margin:0; padding:0; font-size:0.86rem; color:var(--ink-soft);}
+.skill-col li{padding:6px 0;}
+
+/* ============ THINKING ============ */
+.principles{display:grid; grid-template-columns:repeat(5,1fr); gap:0; border-top:1px solid var(--line); border-left:1px solid var(--line);}
+@media (max-width:900px){.principles{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.principles{grid-template-columns:1fr;}}
+.principle{padding:28px 22px; border-right:1px solid var(--line); border-bottom:1px solid var(--line);}
+.principle .pnum{font-family:var(--mono); font-size:0.74rem; color:var(--muted);}
+.principle h4{font-size:1.15rem; margin:14px 0 10px;}
+.principle p{font-size:0.87rem; color:var(--muted); line-height:1.6;}
+
+/* ============ FUTURE ============ */
+.roadmap{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+@media (max-width:800px){.roadmap{grid-template-columns:1fr;}}
+.road-col{background:var(--paper); padding:28px;}
+.road-term{font-family:var(--mono); font-size:0.74rem; color:var(--muted);}
+.road-col h4{font-size:1.2rem; margin:10px 0 16px;}
+.road-col ul{margin:0; padding-left:18px; color:var(--ink-soft); font-size:0.88rem; line-height:1.85;}
+.impact-strip{margin-top:1px; background:var(--ink); color:var(--paper); padding:32px clamp(24px,4vw,44px); display:grid; grid-template-columns:1fr 1.3fr; gap:24px; align-items:center;}
+@media (max-width:800px){.impact-strip{grid-template-columns:1fr;}}
+.impact-strip h4{color:var(--paper); font-size:1.1rem;}
+.impact-strip ul{margin:10px 0 0; padding-left:18px; font-size:0.88rem; color:#C9CAC5; line-height:1.8;}
+.principle-note{font-family:var(--serif); font-size:clamp(1.15rem,2.2vw,1.4rem); font-style:italic; border-top:1px solid var(--line-strong); margin-top:1px; padding:28px clamp(24px,4vw,44px); background:var(--paper-dim);}
+
+/* ============ PERSONAL TRAJECTORY ============ */
+.trajectory-wrap{border:1px solid var(--line-strong); padding:clamp(28px,4vw,48px);}
+.trajectory-chain{display:flex; flex-direction:column;}
+.traj-step{display:flex; align-items:center; gap:20px; padding:16px 0; border-bottom:1px solid var(--line);}
+.traj-step:last-child{border-bottom:none;}
+.traj-num{font-family:var(--mono); font-size:0.74rem; color:var(--muted); width:24px; flex:none;}
+.traj-text{font-family:var(--serif); font-size:clamp(1.05rem,2vw,1.35rem);}
+.traj-arrow{color:var(--line-strong); text-align:center; font-size:0.9rem; padding:2px 0;}
+
+/* ============ RESUME ============ */
+.resume-panel{display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; padding:32px; border:1px solid var(--line-strong); margin-bottom:44px;}
+.resume-panel p{color:var(--muted); font-size:0.92rem; max-width:44ch;}
+.resume-cols{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+@media (max-width:800px){.resume-cols{grid-template-columns:1fr;}}
+.resume-col{background:var(--paper); padding:22px;}
+.resume-col h5{font-family:var(--mono); font-size:0.74rem; color:var(--muted); margin:0 0 12px;}
+.resume-col ul{list-style:none; margin:0; padding:0; font-size:0.88rem; color:var(--ink-soft);}
+.resume-col li{padding:5px 0;}
+
+/* ============ CONTACT ============ */
+.contact-section{padding-bottom:clamp(80px,12vw,140px);}
+.contact-title{font-size:clamp(2.2rem,6vw,4rem); max-width:16ch;}
+.contact-sub{margin-top:18px; color:var(--ink-soft); font-size:1.05rem; max-width:52ch;}
+.contact-links{display:flex; flex-wrap:wrap; gap:14px; margin-top:36px;}
+.footer-line{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); display:flex; justify-content:space-between; color:var(--muted); font-family:var(--mono); font-size:0.76rem; flex-wrap:wrap; gap:10px;}
+
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="#top" class="nav-name">Sandy Sungkyung Park</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#study">Study</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#thinking">Thinking</a></li>
+      <li><a href="#resume">Resume</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-eyebrow">Technological Systems Management · Stony Brook University | SUNY Korea</div>
+    <h1>Building at the intersection of technology, AI, data, and impact.</h1>
+    <p class="hero-sub">Exploring how technology and AI can become practical systems for solving real-world problems.</p>
+    <p class="hero-motto">"I believe technology is built by connecting people."</p>
+    <p class="hero-meta">Sandy Sungkyung Park — Incheon, Korea</p>
+    <div class="hero-ctas">
+      <a href="#work" class="btn solid">View my work</a>
+      <a href="#about" class="btn">About me</a>
+      <a href="#resume" class="btn">Resume</a>
+    </div>
+    <div class="flow" id="flowRow">
+      <span class="flow-node" data-i="0">Problem</span><span class="flow-arrow">/</span>
+      <span class="flow-node" data-i="1">Data</span><span class="flow-arrow">/</span>
+      <span class="flow-node" data-i="2">Technology</span><span class="flow-arrow">/</span>
+      <span class="flow-node" data-i="3">Decision</span><span class="flow-arrow">/</span>
+      <span class="flow-node" data-i="4">Impact</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-index">01 — About</div>
+        <h2 class="section-title">Building taught me what's around the software</h2>
+      </div>
+    </div>
+    <div class="about-grid reveal">
+      <p class="about-statement">"Rather than focusing solely on building software, I became interested in what happens around the software — how technology is integrated into real systems, organizations, and businesses to create meaningful outcomes."</p>
+      <div class="about-body">
+        <p>I'm self-taught. Most of what I know about building technology came from independent software and web-development projects — some for school problems that genuinely needed solving, some just to see if an idea would work. Along the way I picked up AI APIs, databases, web applications, automation, and enough data analysis to be dangerous.</p>
+        <p>Building software taught me that creating useful technology involves much more than writing code. Once something is actually deployed — used by real students, in a real school, with real edge cases — the interesting questions stop being about syntax. They become: how was this technology selected? How is it implemented? How do users actually interact with it? How does an organization decide to adopt it, and how does data support that decision?</p>
+        <p>That shift — from building things to asking how technology is integrated into real systems — is what led me to Technological Systems Management at Stony Brook University | SUNY Korea. I didn't lose interest in coding. I got more interested in everything coding sits inside of.</p>
+      </div>
+    </div>
+    <div class="trajectory-mini reveal">
+      <span class="traj-chip">Building</span><span class="traj-chip">Learning</span><span class="traj-chip">Expanding perspective</span><span class="traj-chip">Technology management</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT I STUDY -->
+<section class="section" id="study">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-index">02 — What I Study</div>
+        <h2 class="section-title">Technological Systems Management</h2>
+        <p class="section-lede">Technology is most meaningful when technical capability connects with real-world systems and needs. Select a node or a concept to see how it relates to the others.</p>
+      </div>
+    </div>
+
+    <div class="study-layout reveal">
+      <div class="diagram">
+        <svg viewBox="0 0 400 400" id="diagramSvg">
+          <g id="diagramLines"></g>
+          <g id="diagramNodes"></g>
+        </svg>
+      </div>
+      <div>
+        <ul class="concept-list" id="conceptList">
+          <li class="concept-item" data-c="tech"><span class="concept-dot" style="background:var(--c-tech)"></span><div><div class="concept-name">Technology</div><div class="concept-desc">Technology management, systems thinking, technology strategy, implementation, and consulting.</div></div></li>
+          <li class="concept-item" data-c="ai"><span class="concept-dot" style="background:var(--c-ai)"></span><div><div class="concept-name">AI</div><div class="concept-desc">Artificial intelligence, AI applications and implementation, responsible AI, human-AI interaction.</div></div></li>
+          <li class="concept-item" data-c="data"><span class="concept-dot" style="background:var(--c-data)"></span><div><div class="concept-name">Data</div><div class="concept-desc">Data analytics, statistical sampling, predictive analysis, visualization, data-driven decisions.</div></div></li>
+          <li class="concept-item" data-c="systems"><span class="concept-dot" style="background:var(--c-systems)"></span><div><div class="concept-name">Systems</div><div class="concept-desc">How individual technologies connect into a working whole — architecture, process, integration.</div></div></li>
+          <li class="concept-item" data-c="business"><span class="concept-dot" style="background:var(--c-business)"></span><div><div class="concept-name">Business</div><div class="concept-desc">Business applications of technology, organizational technology, digital transformation.</div></div></li>
+          <li class="concept-item" data-c="impact"><span class="concept-dot" style="background:var(--c-impact)"></span><div><div class="concept-name">Impact</div><div class="concept-desc">Entrepreneurship and sustainability — making useful technology accessible to more people.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="interests-tags reveal">
+      <span class="tag">Technology Management</span>
+      <span class="tag">Systems Thinking</span>
+      <span class="tag">AI Implementation</span>
+      <span class="tag">Responsible AI</span>
+      <span class="tag">Data-driven Decision Making</span>
+      <span class="tag">Digital Transformation</span>
+      <span class="tag">Technology Entrepreneurship</span>
+      <span class="tag">Sustainable AI</span>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-index">03 — Work</div>
+        <h2 class="section-title">Portfolio</h2>
+        <p class="section-lede">Problem → initiative → design → build → test → challenge → iteration → result → reflection. Not a list of extracurriculars.</p>
+      </div>
+    </div>
+
+    <div class="featured reveal">
+      <div class="featured-top">
+        <div>
+          <div class="featured-cat">Data Analytics / AI Integration / Web Application / Predictive Analysis</div>
+          <h3>AI-Powered Student Election Exit Poll</h3>
+          <div class="featured-role">Data & Analytics Project Lead · Namyangju, Korea · Jul 2025</div>
+        </div>
+      </div>
+
+      <div class="metrics-row">
+        <div class="metric"><div class="num" data-count="979">0</div><div class="label">Population (N)</div></div>
+        <div class="metric"><div class="num" data-count="10">0</div><div class="label">Sampling interval (k)</div></div>
+        <div class="metric"><div class="num" data-count="96">0</div><div class="label">Responses collected</div></div>
+        <div class="metric"><div class="num" data-count="98">0</div><div class="label">% survey completion</div></div>
+      </div>
+
+      <dl class="fields-grid">
+        <div class="field"><dt>Problem</dt><dd>Traditional exit polling for a student election was slow and unsystematic, giving no reliable read on turnout or sentiment while voting was still happening.</dd></div>
+        <div class="field"><dt>Why it was initiated</dt><dd>As lead of the data and analytics team, I wanted to see whether a properly sampled, AI-assisted pipeline could produce a trustworthy real-time read — not just a faster version of an ad hoc poll.</dd></div>
+        <div class="field"><dt>Approach / Design</dt><dd>Designed a systematic interval sampling methodology (k = 10) against a population of 979 voters, then built a real-time web application to collect responses as they came in during voting.</dd></div>
+        <div class="field"><dt>Build</dt><dd>Built the collection app and integrated the Gemini API to run sentiment analysis on open-ended responses, feeding a predictive-modeling layer over the structured poll data.</dd></div>
+        <div class="field"><dt>Role</dt><dd>Data & Analytics Project Lead — owned the sampling design, the analysis pipeline, and coordination with the rest of the team on collection logistics.</dd></div>
+        <div class="field"><dt>Test / Challenge</dt><dd>Balancing statistical rigor (a consistent sampling interval) against the practical chaos of live voting-day collection, while keeping sampling bias low enough to trust the result.</dd></div>
+        <div class="field"><dt>Result</dt><dd>96 responses collected under the k = 10 protocol against a population of 979 — roughly 98% survey completion — feeding a live dashboard combining sentiment analysis with a predictive read on the likely result.</dd></div>
+        <div class="field"><dt>Evaluation</dt><dd>Compared model forecasts against the actual election result: a 13% prediction variance. Post-election analysis traced this back to specific sources of model error and demographic sampling bias.</dd></div>
+        <div class="field"><dt>Key finding</dt><dd>Cross-tabulation and driver analysis showed 44.8% of respondents prioritized policy platforms over candidate background or personal relationships.</dd></div>
+        <div class="field"><dt>Reflection</dt><dd>Good sampling design matters more than raw volume — and even a well-sampled model still needs honest post-hoc evaluation against what actually happened.</dd></div>
+        <div class="field"><dt>Links</dt><dd>Demo and repository available on request.</dd></div>
+      </dl>
+
+      <div class="note">This was a student-built applied AI/data project inside a real school environment — not a professional election-forecasting system, and its results shouldn't be read as representative beyond the documented sampling protocol and collected sample.</div>
+
+      <div class="arch">
+        <div class="arch-label">Technical architecture</div>
+        <div class="arch-chain">
+          <span class="arch-step">Student Voters</span><span class="arch-sep">/</span>
+          <span class="arch-step">Exit Poll Responses</span><span class="arch-sep">/</span>
+          <span class="arch-step">Interval Sampling (k = 10)</span><span class="arch-sep">/</span>
+          <span class="arch-step">Data Collection</span><span class="arch-sep">/</span>
+          <span class="arch-step">Gemini API</span><span class="arch-sep">/</span>
+          <span class="arch-step">Sentiment Analysis</span><span class="arch-sep">/</span>
+          <span class="arch-step">Predictive Analysis</span><span class="arch-sep">/</span>
+          <span class="arch-step">Real-Time Results</span>
+        </div>
+        <div class="highlight-strip">
+          <span class="pill">Leadership</span><span class="pill">Sampling</span><span class="pill">Data Collection</span>
+          <span class="pill">Data Analytics</span><span class="pill">AI API Integration</span><span class="pill">Predictive Analysis</span><span class="pill">Real-world Execution</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dev-archive reveal">
+      <div class="section-index">Development Project Archive</div>
+      <p class="dev-intro">Idea → prototype → failure → analysis → iteration → final system. Focused on the problem and what changed after real use — not the language list.</p>
+
+      <div class="dev-project" data-open="false">
+        <button class="dev-head">
+          <div><div class="dev-title">NFC Student Attendance Automation System</div><div class="dev-narrative">School-wide system · 900+ students</div></div>
+          <span class="dev-toggle">+</span>
+        </button>
+        <div class="dev-body">
+          <div class="dev-body-inner">
+            <div class="dev-field"><dt>Problem</dt><dd>Manual attendance across a school of 900+ students was slow and easy to get wrong, with no reliable way to catch duplicate or invalid check-ins.</dd></div>
+            <div class="dev-field"><dt>Build</dt><dd>An NFC-based check-in system backed by Firebase Realtime Database and Firebase Authentication, with duplicate-prevention logic built into the check-in flow.</dd></div>
+            <div class="dev-field"><dt>Challenge</dt><dd>Keeping scan-to-database latency low enough for real hallway traffic, and making the UX simple enough that younger students needed no instructions.</dd></div>
+            <div class="dev-field"><dt>Iteration</dt><dd>Reworked the duplicate-detection logic and simplified the tap-in flow after testing showed students scanning more than once out of uncertainty.</dd></div>
+            <div class="dev-field"><dt>Result</dt><dd>Deployed as the school's attendance system for 900+ students.</dd></div>
+          </div>
+          <div class="dev-tech">
+            <span class="pill">NFC</span><span class="pill">Firebase</span><span class="pill">Realtime Database</span><span class="pill">Authentication</span><span class="pill">UX/UI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dev-project" data-open="false">
+        <button class="dev-head">
+          <div><div class="dev-title">Umbrella Rental System</div><div class="dev-narrative">School service · ~2,000+ uses per month</div></div>
+          <span class="dev-toggle">+</span>
+        </button>
+        <div class="dev-body">
+          <div class="dev-body-inner">
+            <div class="dev-field"><dt>Problem</dt><dd>Students without umbrellas on rainy days had no consistent way to borrow one, so sharing happened ad hoc and unreliably.</dd></div>
+            <div class="dev-field"><dt>Build</dt><dd>A simple rental service — checkout, return, and availability tracking — designed to run on the school's existing umbrella stock.</dd></div>
+            <div class="dev-field"><dt>Challenge</dt><dd>Encouraging consistent returns and tracking availability without adding manual overhead for staff.</dd></div>
+            <div class="dev-field"><dt>Iteration</dt><dd>Adjusted the checkout/return flow based on observed usage patterns to reduce lost or unreturned umbrellas.</dd></div>
+            <div class="dev-field"><dt>Result</dt><dd>Reached approximately 2,000+ uses per month.</dd></div>
+          </div>
+          <div class="dev-tech"><span class="pill">Web Application</span><span class="pill">Inventory Tracking</span></div>
+        </div>
+      </div>
+
+      <div class="dev-project" data-open="false">
+        <button class="dev-head">
+          <div><div class="dev-title">Engineering & Programming Leadership</div><div class="dev-narrative">Optimus Engineering Club (President) · Programming Club / Commanders (Project Leader)</div></div>
+          <span class="dev-toggle">+</span>
+        </button>
+        <div class="dev-body">
+          <div class="dev-body-inner">
+            <div class="dev-field"><dt>Problem</dt><dd>Building things alone is one skill. Building technical capability across a student team — with very different starting skill levels — is another.</dd></div>
+            <div class="dev-field"><dt>Approach</dt><dd>As president of the Optimus Engineering Club and project leader of the school's programming club (Commanders), taught C fundamentals, interviewed and selected new members, and coordinated technical projects end-to-end.</dd></div>
+            <div class="dev-field"><dt>Challenge</dt><dd>Explaining technical concepts clearly enough for beginners to keep up, while still shipping real projects on a timeline.</dd></div>
+            <div class="dev-field"><dt>Result</dt><dd>A functioning student team capable of executing technical projects together — combining technical execution with people and project management.</dd></div>
+          </div>
+          <div class="dev-tech"><span class="pill">C</span><span class="pill">Teaching</span><span class="pill">Team Leadership</span><span class="pill">Project Management</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="section" id="research">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-index">04 — Research</div>
+        <h2 class="section-title">Questions I explore</h2>
+        <p class="section-lede">Self-directed exploration, not an established research career.</p>
+      </div>
+    </div>
+
+    <div class="research-feature reveal">
+      <div class="research-feature-top">
+        <div>
+          <h3>Quantifying and Mitigating Prompt-Based Carbon Emissions in LLMs</h3>
+        </div>
+        <span class="research-status">Self-directed manuscript · under review</span>
+      </div>
+      <dl class="research-fields">
+        <dt>Research question</dt>
+        <dd>Does how a prompt is written change the computational — and estimated carbon — cost of an LLM's response, and can that cost be reduced without losing answer quality?</dd>
+        <dt>Methodology</dt>
+        <dd>Self-taught the Python needed to run the study, with no formal research mentor. Compared two LLMs across mathematics, coding, reasoning, and humanities tasks, varying correctness, hints given, step length, and repeated questioning, and estimated the computational impact of each response pattern.</dd>
+        <dt>Findings</dt>
+        <dd>Developed the concept of <strong>Green Prompting</strong> — using prompt design and model-path choices to reduce unnecessary computational cost without sacrificing answer quality. Under this study's experimental assumptions, response patterns were associated with an estimated cost on the order of 0.004 g CO₂ per token.</dd>
+      </dl>
+      <div class="note">That figure is an estimate produced under this study's specific experimental assumptions — not a universal carbon footprint for any LLM token.</div>
+    </div>
+
+    <div class="research-themes reveal">
+      <div class="theme-card"><h4>AI & Society</h4><ul><li>AI accessibility</li><li>Educational AI</li><li>AI literacy</li><li>AI for underserved communities</li><li>Human impact of AI</li></ul></div>
+      <div class="theme-card"><h4>Responsible AI</h4><ul><li>AI ethics</li><li>Human-centered AI</li><li>AI transparency</li><li>Bias and fairness</li><li>Practical limitations of AI</li></ul></div>
+      <div class="theme-card"><h4>AI & Sustainability</h4><ul><li>Green AI</li><li>Computational efficiency</li><li>Energy-conscious AI use</li><li>Prompt optimization</li><li>Accessibility/sustainability trade-offs</li></ul></div>
+      <div class="theme-card"><h4>Data & Decision Making</h4><ul><li>Statistical sampling</li><li>Predictive analysis</li><li>Human behavior and data</li><li>Data-driven decision making</li></ul></div>
+      <div class="theme-card"><h4>Technology & Organizations</h4><ul><li>AI adoption</li><li>AI implementation</li><li>Technology strategy</li><li>Technology consulting</li><li>Technology-enabled organizational change</li></ul></div>
+    </div>
+
+    <p class="research-question reveal">"How can AI be applied effectively, practically, and responsibly to real-world problems?"</p>
+  </div>
+</section>
+
+<!-- AI x ORGANIZATIONS -->
+<section class="section" id="organizations">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-index">05 — AI × Organizations</div>
+        <h2 class="section-title">Investment banking, as one environment among several</h2>
+        <p class="section-lede">Sandy is particularly interested in exploring how AI and technology can be applied within investment banking and other complex financial institutions. The focus is technology — not finance itself.</p>
+      </div>
+    </div>
+
+    <div class="org-layout reveal">
+      <div>
+        <div class="mono" style="color:var(--muted); margin-bottom:16px;">Areas of interest</div>
+        <ul class="org-list">
+          <li>AI implementation</li><li>AI-assisted workflows</li><li>Data analytics</li><li>Technology strategy</li>
+          <li>Automation</li><li>Decision-support systems</li><li>AI applications in complex organizations</li>
+          <li>Responsible AI in high-stakes environments</li><li>Technology transformation</li>
+        </ul>
+      </div>
+      <div>
+        <div class="mono" style="color:var(--muted); margin-bottom:16px;">Potential directions</div>
+        <ul class="org-list">
+          <li>AI / Technology Consulting</li><li>AI Strategy</li><li>AI Implementation</li>
+          <li>Data & Analytics</li><li>AI Product / Solutions</li><li>Digital Transformation</li>
+          <li>Technology roles within investment banking</li>
+        </ul>
+        <div class="note">Not a claim of being a finance student or a future investment banker in the traditional sense. It's about using technology and AI inside complex organizations — with investment banking being one particularly interesting environment for that work, explored alongside other complex organizations.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI ETHICS -->
+<section class="section" id="ethics">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-index">06 — AI Ethics</div>
+        <h2 class="section-title">A continuing interest</h2>
+        <p class="section-lede">Less about what AI can do, more about the practical consequences once it's actually used.</p>
+      </div>
+    </div>
+
+    <div class="ethics-questions reveal">
+      <div class="ethics-q">"What can AI do?"</div>
+      <div class="ethics-q">"How should AI be used?"</div>
+    </div>
+
+    <div class="ethics-tags reveal">
+      <span class="tag">Human impact</span><span class="tag">Practical limitations</span><span class="tag">Responsible implementation</span>
+      <span class="tag">Accessibility</span><span class="tag">Bias</span><span class="tag">Transparency</span>
+      <span class="tag">Sustainability</span><span class="tag">Human-AI decision making</span><span class="tag">Unintended consequences</span>
+    </div>
+
+    <div class="ethics-flow reveal">
+      <span class="arch-step">AI</span><span class="arch-sep">/</span>
+      <span class="arch-step">Organizations</span><span class="arch-sep">/</span>
+      <span class="arch-step">People</span><span class="arch-sep">/</span>
+      <span class="arch-step">Decisions</span><span class="arch-sep">/</span>
+      <span class="arch-step">Consequences</span>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP TIMELINE -->
+<section class="section" id="leadership">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-index">07 — Leadership & Activities</div>
+        <h2 class="section-title">Development of capability and perspective</h2>
+        <p class="section-lede">Not strictly chronological — select an item to expand it.</p>
+      </div>
+    </div>
+
+    <div class="timeline reveal" id="timeline">
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <button class="tl-btn"><span class="tl-title">Build</span><span class="tl-tag">Independent projects</span></button>
+        <div class="tl-detail"><div class="tl-detail-inner">Independent software and technology projects, including the NFC attendance system and the umbrella rental service.</div></div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <button class="tl-btn"><span class="tl-title">Lead</span><span class="tl-tag">Engineering & student leadership</span></button>
+        <div class="tl-detail"><div class="tl-detail-inner">Engineering and programming leadership, alongside broader student and community leadership.
+          <ul>
+            <li>Optimus Engineering Club — President</li>
+            <li>Programming Club / Commanders — Project Leader</li>
+            <li>Class President</li>
+            <li>Student Council involvement</li>
+            <li>Sola Fide — student leadership</li>
+            <li>Church youth teaching and leadership</li>
+          </ul>
+        </div></div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <button class="tl-btn"><span class="tl-title">Apply</span><span class="tl-tag">Real school problems</span></button>
+        <div class="tl-detail"><div class="tl-detail-inner">Technology systems solving actual school problems — attendance automation, umbrella rentals, and the school election exit-poll project.</div></div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <button class="tl-btn"><span class="tl-title">Research</span><span class="tl-tag">AI, data, sustainability</span></button>
+        <div class="tl-detail"><div class="tl-detail-inner">Self-directed research into AI, data, sustainability, and responsible technology, including "Quantifying and Mitigating Prompt-Based Carbon Emissions in LLMs."</div></div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <button class="tl-btn"><span class="tl-title">Study</span><span class="tl-tag">Stony Brook University | SUNY Korea</span></button>
+        <div class="tl-detail"><div class="tl-detail-inner">Studying Technological Systems Management at Stony Brook University | SUNY Korea, a U.S.-affiliated institution based in Incheon.</div></div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <button class="tl-btn"><span class="tl-title">Explore</span><span class="tl-tag">Technology × AI × Data × Organizations</span></button>
+        <div class="tl-detail"><div class="tl-detail-inner">Exploring how AI and technology apply inside complex organizations, with investment banking as one particularly interesting environment among several.</div></div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <button class="tl-btn"><span class="tl-title">Future</span><span class="tl-tag">AI in complex organizations</span></button>
+        <div class="tl-detail"><div class="tl-detail-inner">Applying AI and technology to complex, real-world organizations — direction still forming, grounded in what's been built and studied so far.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="section-index">08 — Skills</div><h2 class="section-title">By capability, not by language list</h2></div>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-col"><h4><span class="concept-dot" style="background:var(--c-tech); display:inline-block;"></span>Technology</h4><ul><li>Web Development</li><li>Software Development</li><li>AI APIs</li><li>Firebase</li><li>Automation</li><li>Technology Systems</li><li>UX/UI</li></ul></div>
+      <div class="skill-col"><h4><span class="concept-dot" style="background:var(--c-data); display:inline-block;"></span>Data & AI</h4><ul><li>Data Analytics</li><li>Statistical Sampling</li><li>Predictive Analysis</li><li>Data Visualization</li><li>Sentiment Analysis</li><li>AI Integration</li></ul></div>
+      <div class="skill-col"><h4><span class="concept-dot" style="background:var(--c-business); display:inline-block;"></span>Technology & Organizations</h4><ul><li>Technology Management</li><li>Technology Strategy</li><li>Technology Implementation</li><li>Business Analysis</li><li>Technology Consulting</li><li>Digital Transformation</li></ul></div>
+      <div class="skill-col"><h4><span class="concept-dot" style="background:var(--c-systems); display:inline-block;"></span>Research</h4><ul><li>Research Design</li><li>Literature Review</li><li>Data Analysis</li><li>Academic Writing</li><li>Self-directed Research</li></ul></div>
+      <div class="skill-col"><h4><span class="concept-dot" style="background:var(--c-impact); display:inline-block;"></span>Leadership</h4><ul><li>Team Leadership</li><li>Project Management</li><li>Problem Solving</li><li>Technical Communication</li><li>Cross-functional Collaboration</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- THINKING -->
+<section class="section" id="thinking">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="section-index">09 — How I Think</div><h2 class="section-title">Five working principles</h2></div>
+    </div>
+    <div class="principles reveal">
+      <div class="principle"><div class="pnum">01</div><h4>Build</h4><p>Ideas become meaningful when they are actually executed.</p></div>
+      <div class="principle"><div class="pnum">02</div><h4>Fail</h4><p>A concept that works on paper can behave very differently in reality.</p></div>
+      <div class="principle"><div class="pnum">03</div><h4>Iterate</h4><p>The first version is rarely the final system.</p></div>
+      <div class="principle"><div class="pnum">04</div><h4>Connect</h4><p>Technology becomes more valuable when technical capability connects with real-world needs.</p></div>
+      <div class="principle"><div class="pnum">05</div><h4>Scale impact</h4><p>The goal is not simply to build technology, but to make useful technology accessible to more people.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FUTURE VISION -->
+<section class="section" id="future">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="section-index">10 — Future Vision</div><h2 class="section-title">Roadmap</h2></div>
+    </div>
+    <div class="reveal">
+      <div class="roadmap">
+        <div class="road-col">
+          <div class="road-term">Now</div><h4>University</h4>
+          <ul><li>Develop expertise in Technological Systems Management</li><li>Build AI/data projects</li><li>Continue research</li><li>Explore technology applications in organizations</li><li>Gain professional experience</li><li>Develop stronger technical and analytical skills</li></ul>
+        </div>
+        <div class="road-col">
+          <div class="road-term">Next</div><h4>AI × Technology in Organizations</h4>
+          <ul><li>Explore how AI can be implemented, integrated, managed, evaluated, and scaled within complex organizations</li><li>Particular interest: investment banking and financial institutions</li><li>Focus stays on technology and AI application, not finance as an academic interest</li></ul>
+        </div>
+        <div class="road-col">
+          <div class="road-term">Long term</div><h4>Technology & Entrepreneurship</h4>
+          <ul><li>Explore building technology companies that apply AI to meaningful real-world problems</li></ul>
+        </div>
+      </div>
+      <div class="impact-strip">
+        <h4>Social impact</h4>
+        <ul><li>Educational AI</li><li>AI accessibility</li><li>Supporting students with limited resources</li><li>Technology access in developing or low-connectivity environments</li><li>Sustainable use of AI</li></ul>
+      </div>
+      <div class="principle-note">"AI should not only become more powerful. It should become more accessible, practical, and sustainable."</div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAL TRAJECTORY -->
+<section class="section" id="trajectory">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="section-index">11 — Personal Trajectory</div><h2 class="section-title">How this connects</h2></div>
+    </div>
+    <div class="trajectory-wrap reveal">
+      <div class="trajectory-chain">
+        <div class="traj-step"><span class="traj-num">01</span><span class="traj-text">Build technology</span></div>
+        <div class="traj-arrow">↓</div>
+        <div class="traj-step"><span class="traj-num">02</span><span class="traj-text">Learn from real users</span></div>
+        <div class="traj-arrow">↓</div>
+        <div class="traj-step"><span class="traj-num">03</span><span class="traj-text">Understand data & AI</span></div>
+        <div class="traj-arrow">↓</div>
+        <div class="traj-step"><span class="traj-num">04</span><span class="traj-text">Ask how technology should be used</span></div>
+        <div class="traj-arrow">↓</div>
+        <div class="traj-step"><span class="traj-num">05</span><span class="traj-text">Study technology management</span></div>
+        <div class="traj-arrow">↓</div>
+        <div class="traj-step"><span class="traj-num">06</span><span class="traj-text">Explore AI applications in complex organizations</span></div>
+        <div class="traj-arrow">↓</div>
+        <div class="traj-step"><span class="traj-num">07</span><span class="traj-text">Build technology with meaningful impact</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section class="section" id="resume">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="section-index">12 — Resume</div><h2 class="section-title">The formal record</h2></div>
+    </div>
+    <div class="resume-panel reveal">
+      <p>The site above provides context, process, and reflection. The resume provides concise evidence.</p>
+      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+        <a href="https://drive.google.com/file/d/1ATB5LunoI3Tu2D4xm5pClIc3OQ8xIlEk/view?usp=sharing" class="btn solid" target="_blank" rel="noopener">View resume</a>
+        <a href="https://drive.google.com/uc?export=download&id=1ATB5LunoI3Tu2D4xm5pClIc3OQ8xIlEk" class="btn" target="_blank" rel="noopener">Download PDF</a>
+      </div>
+    </div>
+    <div class="resume-cols reveal">
+      <div class="resume-col"><h5>Education</h5><ul><li>Stony Brook University | SUNY Korea</li><li>B.S. Technological Systems Management</li><li>Aug 2026 – May 2030</li><li>Applied Calculus I · Intro to Sci, Tech, Soc Studies</li><li>Historical Intro to Western Philosophy</li><li>Classical Physics I · Introductory Writing</li></ul></div>
+      <div class="resume-col"><h5>Professional Experience</h5><ul><li>Teacher-Assistant, Seattle Kids International Education (SKIE)</li><li>Namyangju, Korea · Jan–Feb 2026</li><li>Ran daily classroom operations for two cohorts of 16 students</li><li>Supported 30+ students across after-school sessions, contests, reading marathons, and field trips</li></ul></div>
+      <div class="resume-col"><h5>Leadership</h5><ul><li>Data & Analytics Project Lead — Exit Poll Project</li><li>Optimus Engineering Club — President</li><li>Programming Club / Commanders — Project Leader</li></ul></div>
+      <div class="resume-col"><h5>Projects & Research</h5><ul><li>AI-Powered Student Election Exit Poll</li><li>NFC Attendance System · Umbrella Rental System</li><li>Prompt-Based Carbon Emissions in LLMs (under review)</li></ul></div>
+      <div class="resume-col"><h5>Skills</h5><ul><li>Python, Java, C++, HTML</li><li>Premiere Pro · Generative AI</li><li>Microsoft Office (PowerPoint, Word, Excel)</li></ul></div>
+      <div class="resume-col"><h5>Languages & Interests</h5><ul><li>Fluent in Korean and English</li><li>AI Ethics</li><li>AI-based Techniques</li><li>Global Investment</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact-section" id="contact">
+  <div class="wrap">
+    <h2 class="contact-title reveal">Let's build something meaningful.</h2>
+    <p class="contact-sub reveal">Open to conversations about AI, technology, data, responsible AI, research, organizations, and interesting projects.</p>
+    <div class="contact-links reveal">
+      <a href="mailto:parksungkyung.psk@gmail.com" class="btn solid">Email</a>
+      <a href="https://www.linkedin.com/in/sandiiyprk/" class="btn" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="footer-line">
+      <span>Sandy Sungkyung Park — Stony Brook University | SUNY Korea</span>
+      <span>Technology / AI / Data / Impact</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+revealEls.forEach(el => io.observe(el));
+
+const flowNodes = document.querySelectorAll('.flow-node');
+let flowIndex = 0;
+function stepFlow(){
+  flowNodes.forEach(n => n.classList.remove('active'));
+  flowNodes[flowIndex].classList.add('active');
+  flowIndex = (flowIndex + 1) % flowNodes.length;
+}
+stepFlow();
+setInterval(stepFlow, 1400);
+
+const counters = document.querySelectorAll('.metric .num');
+const counterIO = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = parseInt(el.dataset.count, 10);
+    const dur = 900;
+    const start = performance.now();
+    function tick(now){
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+    counterIO.unobserve(el);
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => counterIO.observe(c));
+
+document.querySelectorAll('.dev-project .dev-head').forEach(btn => {
+  btn.addEventListener('click', () => { btn.closest('.dev-project').classList.toggle('open'); });
+});
+document.querySelectorAll('.tl-btn').forEach(btn => {
+  btn.addEventListener('click', () => { btn.closest('.tl-item').classList.toggle('open'); });
+});
+
+const concepts = [
+  { id:'tech', label:'Technology' }, { id:'ai', label:'AI' }, { id:'data', label:'Data' },
+  { id:'systems', label:'Systems' }, { id:'business', label:'Business' }, { id:'impact', label:'Impact' },
+];
+const cx = 200, cy = 200, r = 150;
+const nodePositions = {};
+concepts.forEach((c, i) => {
+  const angle = (Math.PI * 2 * i) / concepts.length - Math.PI / 2;
+  nodePositions[c.id] = { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
+});
+const colorVar = { tech:'var(--c-tech)', ai:'var(--c-ai)', data:'var(--c-data)', systems:'var(--c-systems)', business:'var(--c-business)', impact:'var(--c-impact)' };
+const linesG = document.getElementById('diagramLines');
+const nodesG = document.getElementById('diagramNodes');
+concepts.forEach((a, i) => {
+  concepts.forEach((b, j) => {
+    if (j <= i) return;
+    const p1 = nodePositions[a.id], p2 = nodePositions[b.id];
+    const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1', p1.x); line.setAttribute('y1', p1.y);
+    line.setAttribute('x2', p2.x); line.setAttribute('y2', p2.y);
+    line.setAttribute('data-a', a.id); line.setAttribute('data-b', b.id);
+    linesG.appendChild(line);
+  });
+});
+concepts.forEach(c => {
+  const pos = nodePositions[c.id];
+  const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+  g.setAttribute('class','node'); g.setAttribute('data-c', c.id);
+  const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  circle.setAttribute('cx', pos.x); circle.setAttribute('cy', pos.y); circle.setAttribute('r', 40);
+  circle.setAttribute('stroke', colorVar[c.id]);
+  const text = document.createElementNS('http://www.w3.org/2000/svg','text');
+  text.setAttribute('x', pos.x); text.setAttribute('y', pos.y); text.textContent = c.label;
+  g.appendChild(circle); g.appendChild(text);
+  nodesG.appendChild(g);
+});
+function setActiveConcept(id){
+  document.querySelectorAll('.node').forEach(n => n.classList.toggle('active', n.dataset.c === id));
+  document.querySelectorAll('#diagramLines line').forEach(l => {
+    const touches = l.dataset.a === id || l.dataset.b === id;
+    l.style.opacity = id ? (touches ? 0.9 : 0.15) : 0.5;
+  });
+  document.querySelectorAll('.concept-item').forEach(el => el.style.background = el.dataset.c === id ? 'var(--paper-dim)' : 'transparent');
+}
+document.querySelectorAll('.node').forEach(n => n.addEventListener('click', () => setActiveConcept(n.dataset.c)));
+document.querySelectorAll('.concept-item').forEach(el => el.addEventListener('click', () => setActiveConcept(el.dataset.c)));
+</script>
+</body>
+</html>
